@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
+import Date from '../components/date'
 import Layout, { siteTitle } from '../components/layout'
 import Alert from '../components/alert'
 import utilsStyles from '../styles/utils.module.css'
@@ -19,7 +21,6 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <Alert type='success'>success...!</Alert>
       <section className={utilsStyles.headingMd}>
         <p>[Your Self Introduction]</p>
         <p>
@@ -32,11 +33,13 @@ export default function Home({ allPostsData }) {
         <ul className={utilsStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilsStyles.listItem} key={id}>
-              {title}
+              <Link href="/posts/[id]" as={`/posts/${id}`}>
+                <a>{title}</a>
+              </Link>
               <br />
-              {id}
-              <br />
-              {date}
+              <small className={utilsStyles.lightText}>
+                <Date dateString={date} />
+              </small>
             </li>
           ))}
         </ul>
